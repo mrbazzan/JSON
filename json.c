@@ -12,6 +12,7 @@ str parse_number(str string){
         if(*string == '-'){  // sign in-front of number.
             sign = -1; string++;
         }
+        //TODO: Rework the condition here
         if(*string >= '0' && *string <= '9'){ // normal number.
             do{
                 num = (num * 10) + (*string - '0'); string++;
