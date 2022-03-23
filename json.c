@@ -37,3 +37,62 @@ str parse_number(str string){
 
     return string;
 }
+
+
+str parse_string(str string){
+    int len = 0;
+    str ptr = string+1, str_ptr, space_ptr;
+
+    if(*string!='\"'){ return 0; }
+
+    while(*ptr != '\"' && *ptr>31){
+        len++;
+        if(*ptr == '\\'){ ptr++;}
+        ptr++;
+    }
+
+    ptr = string+1;
+
+    str_ptr = malloc(len+1);
+    space_ptr = str_ptr;
+
+    while(*ptr != '\"' && *ptr>31){
+        if(*ptr == '\\'){
+            ptr++;
+            switch (*ptr){
+                case 'b':
+                    *space_ptr = '\b'; space_ptr++;
+                    break;
+                case 'f':
+                    *space_ptr = '\f'; space_ptr++;
+                    break;
+                case 'n':  // replace \\n --> \\\n
+                    *space_ptr = '\n'; space_ptr++;
+                    break;
+                case 'r':
+                    *space_ptr = '\r'; space_ptr++;
+                     break;
+                case 't':
+                    *space_ptr = '\t'; space_ptr++;
+                    break;
+                case 'u':
+                case 'U':
+                    // TODO: utf16 to utf8 conversion.
+                    break;
+
+                default:
+                    *space_ptr = *ptr; space_ptr++;
+                    break;
+            }
+            ptr++;
+        }
+        else{
+            *space_ptr = *ptr;
+            space_ptr++; ptr++;
+        }
+    }
+    space_ptr=0;
+    if (*ptr == '\"') {ptr++;}
+
+    return ptr;
+}
