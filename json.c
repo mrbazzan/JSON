@@ -1,6 +1,10 @@
 
 #include "json.h"
 
+//prototype
+str parse_value(str string);
+str parse_array(str string);
+
 
 str parse_number(str string){
     double num = 0;
@@ -91,4 +95,46 @@ str parse_string(str string){
     if (*ptr == '\"') {ptr++;}
 
     return ptr;
+}
+
+
+str parse_value(str string){
+    // TODO: Cater for 'true', 'false', 'null' and 'object'.
+    if(*string == '\"'){
+        return parse_string(string);
+    }
+    if (*string=='-' || (*string>='0' && *string<='9')){
+        return parse_number(string);
+    }
+    if (*string=='['){
+        return parse_array(string);
+    }
+
+
+}
+
+
+str space(str item){
+    // skip whitespace between tokens
+    while(*item && *item<=32){ item++; }
+    return item;
+}
+
+
+str parse_array(str string){
+    if(*string != '[') { return 0; } // It does not start with [
+
+    // Skip whitespace
+    string = space(string+1);
+    if (*string == ']'){ return string+1; } // Empty array
+
+    string = space(parse_value(string));
+
+    // Parse inner items
+    while (*string==','){
+        string = space(parse_value(space(string+1)));
+    }
+    // properly parsed.
+    if(*string==']'){ return string+1; }
+    return 0; // An error has occurred somewhere.
 }
