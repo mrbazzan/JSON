@@ -99,7 +99,7 @@ str parse_string(str string){
 
 
 str parse_value(str string){
-    // TODO: Cater for 'true', 'false', 'null' and 'object'.
+    // TODO: Cater for 'object'.
     if(*string == '\"'){
         return parse_string(string);
     }
@@ -109,6 +109,9 @@ str parse_value(str string){
     if (*string=='['){
         return parse_array(string);
     }
+    if (!strncmp(string, "true", 4)){ return string+4; }
+    if (!strncmp(string, "false", 5)){ return string+5; }
+    if (!strncmp(string, "null", 4)){ return string+4; }
 
 
 }
