@@ -4,6 +4,7 @@
 //prototype
 str parse_value(str string);
 str parse_array(str string);
+str parse_object(str string);
 
 
 str parse_number(str string){
@@ -99,13 +100,15 @@ str parse_string(str string){
 
 
 str parse_value(str string){
-    // TODO: Cater for 'object'.
     if(*string == '\"'){
         return parse_string(string);
     }
     if (*string=='-' || (*string>='0' && *string<='9')){
         return parse_number(string);
     }
+
+    if(*string=='{') {return parse_object(string);}
+
     if (*string=='['){
         return parse_array(string);
     }
@@ -113,7 +116,7 @@ str parse_value(str string){
     if (!strncmp(string, "false", 5)){ return string+5; }
     if (!strncmp(string, "null", 4)){ return string+4; }
 
-
+    return 0; // There is an error.
 }
 
 
@@ -140,4 +143,29 @@ str parse_array(str string){
     // properly parsed.
     if(*string==']'){ return string+1; }
     return 0; // An error has occurred somewhere.
+}
+
+
+str parse_object(str string){
+
+    if(*string != '{'){ return 0; }  // not a json object
+
+    string = space(string+1);
+    if(*string == '}'){ return string+1; }  // empty json object
+
+LOOP:
+    if(*string != '\"') { return 0; } // error: not a string
+    string = space(parse_string(string));
+
+    if(*string != ':') { return 0; }  // error: ":" not present
+    string = parse_value(space(string+1));
+    while(*string==','){
+        string = space(string+1);
+        goto LOOP;
+    }
+
+    string = space(string);
+    if (*string == '}') { return string+1; } // complete json
+
+    return 0; // error!
 }
