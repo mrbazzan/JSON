@@ -1,4 +1,8 @@
 
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
 #include "json.h"
 
 
@@ -49,7 +53,7 @@ str parse_string(str string){
 
     ptr = string+1;
 
-    str_ptr = malloc(len+1);
+    str_ptr = calloc(sizeof(char), len+1);
     space_ptr = str_ptr;
 
     while(*ptr != '\"' && *ptr>31){
