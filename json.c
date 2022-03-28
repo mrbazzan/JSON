@@ -99,6 +99,8 @@ str parse_string(str string){
 
 
 str parse_value(str string){
+
+    if(!string){ return 0; } // error
     if(*string == '\"'){
         return parse_string(string);
     }
