@@ -135,12 +135,15 @@ str parse_array(str string){
     string = space(string+1);
     if (*string == ']'){ return string+1; } // Empty array
 
+ARRAY_LOOP:
     string = space(parse_value(string));
 
     // Parse inner items
     while (*string==','){
-        string = space(parse_value(space(string+1)));
+        string = space(string+1);
+        goto ARRAY_LOOP;
     }
+
     // properly parsed.
     if(*string==']'){ return string+1; }
     return 0; // An error has occurred somewhere.
