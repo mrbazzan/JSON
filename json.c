@@ -195,3 +195,13 @@ LOOP:
 
     return 0; // error!
 }
+
+
+void free_memory(JSON *item){
+    if(item->key){ free(item->key); }
+    if(item->str_value){ free(item->str_value); }
+    if(item->child){ free_memory(item->child); }
+
+    if(item->inner){ free_memory(item->inner); }
+    free(item);
+}
