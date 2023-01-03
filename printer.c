@@ -45,7 +45,7 @@ extern str JSON_print(JSON *item){
         case FALSE:
             break;
         case NUMBER:
-            break;
+            string = print_number(item); break;
         case JSON_STRING:
             break;
         case ARRAY:
