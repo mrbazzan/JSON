@@ -2,6 +2,16 @@
 #include "json.h"
 
 
+void free_memory(JSON *item){
+    if(item->key){ free(item->key); }
+    if(item->str_value){ free(item->str_value); }
+    if(item->child){ free_memory(item->child); }
+
+    if(item->inner){ free_memory(item->inner); }
+    free(item);
+}
+
+
 str parse_number(JSON *item, str string){
     double num = 0;
     int power = 0, sign = 1, inner_sign = 1, exp_power = 0;
@@ -194,14 +204,4 @@ LOOP:
     if (*string == '}') { item->type=OBJECT; return string+1; } // complete json
 
     return 0; // error!
-}
-
-
-void free_memory(JSON *item){
-    if(item->key){ free(item->key); }
-    if(item->str_value){ free(item->str_value); }
-    if(item->child){ free_memory(item->child); }
-
-    if(item->inner){ free_memory(item->inner); }
-    free(item);
 }
