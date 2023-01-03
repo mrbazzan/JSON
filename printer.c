@@ -91,6 +91,11 @@ str _print_string(str string){
 }
 
 
+str print_string(JSON *item) {
+    return _print_string(item->str_value);
+}
+
+
 extern str JSON_print(JSON *item){
     str string = 0;
     switch(item->type){
