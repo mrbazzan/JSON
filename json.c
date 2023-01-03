@@ -68,6 +68,7 @@ str parse_string(JSON *item, str string){
         ptr++;
     }
 
+    // Return *ptr* to "initial address+1" after counting the length.
     ptr = string+1;
 
     str_ptr = calloc(sizeof(char), len+1);
