@@ -108,7 +108,7 @@ extern str JSON_print(JSON *item){
         case NUMBER:
             string = print_number(item); break;
         case JSON_STRING:
-            break;
+            string = print_string(item); break;
         case ARRAY:
             break;
         case OBJECT:
