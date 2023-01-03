@@ -210,3 +210,15 @@ LOOP:
 
     return 0; // error!
 }
+
+
+static JSON* JSON_init(void){
+    return calloc(1, sizeof(JSON));
+}
+
+
+extern JSON* JSON_parse(str value){
+    JSON* item = JSON_init();
+    parse_value(item, value);
+    return item;
+}

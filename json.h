@@ -29,3 +29,4 @@ typedef struct JSON{
 //TOP-LEVEL APIs
 
 void free_memory(JSON *item);
+extern JSON* JSON_parse(str value);
