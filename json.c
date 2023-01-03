@@ -1,6 +1,11 @@
 
 #include "json.h"
 
+//prototype
+str parse_value(JSON *item, str string);
+str parse_array(JSON *item, str string);
+str parse_object(JSON *item, str string);
+
 
 void free_memory(JSON *item){
     if(item->key){ free(item->key); }

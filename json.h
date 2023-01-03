@@ -26,9 +26,6 @@ typedef struct JSON{
     str key;
 } JSON;
 
-//prototype
-str parse_value(JSON *item, str string);
-str parse_array(JSON *item, str string);
-str parse_object(JSON *item, str string);
+//TOP-LEVEL APIs
 
 void free_memory(JSON *item);
