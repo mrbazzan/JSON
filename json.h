@@ -30,3 +30,4 @@ typedef struct JSON{
 
 void free_memory(JSON *item);
 extern JSON* JSON_parse(str value);
+extern str JSON_print(JSON *item);
