@@ -96,7 +96,7 @@ str print_string(JSON *item) {
 }
 
 
-extern str JSON_print(JSON *item){
+str print_value(JSON *item, int depth){
     str string = 0;
     switch(item->type){
         case JSON_NULL:
@@ -115,4 +115,9 @@ extern str JSON_print(JSON *item){
             break;
     }
     return string;
+}
+
+
+extern str JSON_print(JSON *item){
+    return print_value(item, 0);
 }
