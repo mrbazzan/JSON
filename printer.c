@@ -104,10 +104,13 @@ str print_value(JSON *item, int depth){
     str string = 0;
     switch(item->type){
         case JSON_NULL:
+            string = strdup("null");
             break;
         case TRUE:
+            string = strdup("true");
             break;
         case FALSE:
+            string = strdup("false");
             break;
         case NUMBER:
             string = print_number(item); break;
