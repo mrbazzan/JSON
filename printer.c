@@ -1,6 +1,10 @@
 
 #include "json.h"
 
+str print_value(JSON *item, int depth);
+str print_array(JSON *item, int depth);
+str print_object(JSON *item, int depth);
+
 
 str print_number(JSON *item){
     double d = item->double_value;
