@@ -114,11 +114,39 @@ str print_value(JSON *item, int depth){
         case JSON_STRING:
             string = print_string(item); break;
         case ARRAY:
+            string = print_array(item, depth);
             break;
         case OBJECT:
             break;
     }
     return string;
+}
+
+
+str print_array(JSON *item,int depth)
+{
+	str out,ptr,ret;int len=5;
+	JSON *child=item->child;
+
+	out=malloc(len);*out='[';
+	ptr=out+1;*ptr=0;
+	while (child)
+	{
+		ret=print_value(child,depth+1);
+		if (!ret) {
+            free(out);
+            return 0;
+        }	// Check for failure!
+		len+=strlen(ret)+3;
+		out=realloc(out,len);
+		ptr=out+strlen(out);
+		ptr+=sprintf(ptr,ret);
+		if (child->inner) {*ptr++=',';*ptr++=' ';*ptr=0;}
+		child=child->inner;
+		free(ret);
+	}
+	*ptr++=']';*ptr++=0;
+	return out;
 }
 
 
